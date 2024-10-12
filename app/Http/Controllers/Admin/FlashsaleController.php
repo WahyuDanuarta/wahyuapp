@@ -4,46 +4,48 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Flashsale;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
 
-class ProductController extends Controller
+class FlashsaleController extends Controller
 {
+    
     public function index()
     {
-        $products = Product::all();
+        $flashsales = Flashsale::all();
         
         confirmDelete('Hapus Data!', 'apakah anda yakin ingin menghapus data ini?');
 
-        return view('pages.admin.product.index', compact('products'));
+        return view('pages.admin.flashsale.index', compact('flashsales'));
     }
 
     public function create()
     {
-        return view('pages.admin.product.create');
+        return view('pages.admin.flashsale.create');
     }
 
     public function detail($id)
     {
-        $product = Product::findOrFail($id);
-        return view('pages.admin.product.detail', compact('product'));
+        $flashsales = Flashsale::findOrFail($id);
+        return view('pages.admin.flashsale.detail', compact('flashsales'));
     }
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
-        return view('pages.admin.product.edit', compact('product'));
+        $flashsales = Flashsale::findOrFail($id);
+        return view('pages.admin.flashsale.edit', compact('flashsales'));
     }
 
-    //Menambahkan data product
+    //Menambahkan data flashsale
     public function store(Request $request)
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'price' => 'numeric',
+            'diskon_price' => 'numeric',
+            'original_price' => 'numeric',
             'category' => 'required',
             'description' => 'required',
             'image' => 'required|mimes:png,jpeg,jpg',
@@ -64,31 +66,32 @@ class ProductController extends Controller
         }
 
         // Simpan produk
-        $product = Product::create([
+        $flashsales = Flashsale::create([
             'name' => $request->name,
-            'price' => $request->price,
+            'diskon_price' => $request->diskon_price,
+            'original_price' => $request->original_price,
             'category' => $request->category,
             'description' => $request->description,
             'image' => $imageName,
         ]);
 
         // Pengecekan apakah produk berhasil disimpan
-        if ($product) {
+        if ($flashsales) {
             Alert::success('Berhasil!', 'Produk berhasil ditambahkan!');
-            return redirect()->route('admin.product');
+            return redirect()->route('admin.flashsale');
         } else {
             Alert::error('Gagal!', 'Produk gagal ditambahkan!');
             return redirect()->back();
         }
     }
-
     // update data product
     public function update(Request $request, $id)
-    {
+        {
         // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'price' => 'numeric',
+            'diskon_price' => 'numeric',
+            'original_price' => 'numeric',
             'category' => 'required',
             'description' => 'required',
             'image' => 'nullable|mimes:png,jpeg,jpg',
@@ -101,12 +104,12 @@ class ProductController extends Controller
         }
 
         // Mencari produk berdasarkan ID
-        $product = Product::findOrFail($id);
+        $flashsales = Flashsale::findOrFail($id);
 
         // Proses upload gambar baru jika ada
-        $imageName = $product->image; // Menyimpan gambar lama sebagai default
+        $imageName = $flashsales->image; // Menyimpan gambar lama sebagai default
         if ($request->hasFile('image')) {
-            $oldPath = public_path('images/' . $product->image);
+            $oldPath = public_path('images/' . $flashsales->image);
             if (File::exists($oldPath)) {
                 File::delete($oldPath);
             }
@@ -117,42 +120,38 @@ class ProductController extends Controller
         }
 
         // Update data produk
-        $product->update([
+        $flashsales->update([
             'name' => $request->name,
-            'price' => $request->price,
+            'diskon_price' => $request->diskon_price,
+            'original_price' => $request->original_price,
             'category' => $request->category,
             'description' => $request->description,
             'image' => $imageName,
+            
         ]);
 
         // Pengecekan apakah produk berhasil diperbarui
-        if ($product) {
-            Alert::success('Berhasil!', 'Produk berhasil diperbarui!');
-            return redirect()->route('admin.product');
+        if ($flashsales) {
+            Alert::success('Berhasil!', 'Produk Flashsale berhasil diperbarui!');
+            return redirect()->route('admin.flashsale');
         } else {
-            Alert::error('Gagal!', 'Produk gagal diperbarui!');
+            Alert::error('Gagal!', 'Produk Flashsale gagal diperbarui!');
             return redirect()->back();
         }
-        
     }
-
     public function delete($id)
     {
-        $product = Product::findOrFail($id);
-
-        $oldPath = public_path('images/' . $product->image);
-        if (File::exists($oldPath)){
-            File::delete($oldPath);
+        $flashsales = Flashsale::findOrFail($id);
+        if ($flashsales->image) {
+            File::delete(public_path('images/' . $flashsales->image));
         }
-        $product->delete();
+        $flashsales->delete();
 
-        if ($product){
-            Alert::success('Berhasil!','Produk berhasil dihapus');
-            return redirect()->back();
-        } else {
-            Alert::error('Gagal!', 'Produk gagal diHapus!');
-            return redirect()->back();
-        }
+        Alert::success('Berhasil!', 'Produk berhasil dihapus!');
+        return redirect()->route('admin.flashsale');
     }
 
-}
+    
+} 
+    
+

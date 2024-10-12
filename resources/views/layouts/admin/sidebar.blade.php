@@ -13,7 +13,7 @@
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span></a>
             </li>
-            <li class="{{ route::is('admin.product') ? 'active' : '' }}">
+            <li class="{{ Request::is('product') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.product') }}">
                     <i class="fas fa-box"></i>
                     <span>Produk</span></a>
@@ -21,7 +21,12 @@
             <li class="{{ route::is('admin.distributor') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.distributor') }}">
                     <i class="fas fa-people-carry"></i>
-                    <span>Distributor</span></a></li>
+                    <span>Distributor</span></a>
+            </li>
+            <li class="{{ Route::is('admin.flashsale') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.flashsale') }}">
+                    <i class="fas fa-solid fa-tags"></i>
+                    <span>Produk Flash Sale</span></a>
         </ul>
     </aside>
 </div>

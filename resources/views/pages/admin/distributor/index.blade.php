@@ -10,19 +10,17 @@
                 <div class="breadcrumb-item">Distributor</div>
             </div>
         </div>
-        <a href="#" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Tambah Distributor</a>
+        <a href="{{ route('admin.distributor.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Tambah Distributor</a>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-md">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No</th>
                             <th>Nama Distributor</th>
                             <th>Lokasi</th>
                             <th>Kontak</th>
                             <th>Email</th>
-                            <th>Created_at</th>
-                            <th>Update_at</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,21 +28,18 @@
                         @php
                             $no = 1
                         @endphp
-                        @forelse ($distributors as $distributor)
+                        @forelse ($distributors as $item)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $distributor->nama_distributor }}</td>
-                                <td>{{ $distributor->lokasi }}</td>
-                                <td>{{ $distributor->kontak }}</td>
-                                <td>{{ $distributor->email }}</td>
-                                <td>{{ $distributor->created_at->format('d-m-Y H:i') }}</td>
-                                <td>{{ $distributor->updated_at->format('d-m-Y H:i') }}</td>
+                                <td>{{ $item->nama_distributor }}</td>
+                                <td>{{ $item->lokasi }}</td>
+                                <td>{{ $item->kontak }}</td>
+                                <td>{{ $item->email }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-info btn-icon"><i class="fas fa-info-circle"></i></a>
-                                    <a href="#" class="btn btn-warning btn-icon"><i class="fas fa-edit"></i></a>
-                                    <a href="#" class="btn btn-danger btn-icon"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ route('admin.distributor.detail', $item->id) }}" class="badge badge-info">Detail</a>
+                                    <a href="{{ route('admin.distributor.edit', $item->id) }}" class="badge badge-warning">Edit</a>
+                                    <a href="{{ route('admin.distributor.delete', $item->id) }}" class="badge badge-danger"data-confirm-delete="true">Hapus</a>
                                 </td>
-
                             </tr>
                         @empty
                             <tr>
