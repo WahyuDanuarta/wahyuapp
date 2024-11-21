@@ -22,6 +22,9 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('user.history', Auth::user()->id) }}">History </a></li>
+                        </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.logout') }}">Logout</a>
                         </li>

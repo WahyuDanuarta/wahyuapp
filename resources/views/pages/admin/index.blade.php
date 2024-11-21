@@ -59,7 +59,7 @@
             <!-- Kartu untuk Produk Flash Sale -->
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-success">
+                    <div class="card-icon bg-warning">
                         <i class="fas fa-solid fa-tags"></i> <!-- Ikon Flash Sale -->
                     </div>
                     <div class="card-wrap">
@@ -72,6 +72,22 @@
                     </div>
                 </div>
             </div>
+<!-- Total Admin -->
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12"> 
+                    <div class="card card-statistic-1"> 
+                        <div class="card-icon bg-info"> 
+                            <i class="fas fa-user-shield"></i> 
+                        </div> 
+                        <div class="card-wrap"> 
+                            <div class="card-header"> 
+                                <h4>Total Admin</h4> 
+                            </div> 
+                            <div class="card-body"> 
+                                {{ $admins }} 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div>
         </div>
     </section>
 </div>

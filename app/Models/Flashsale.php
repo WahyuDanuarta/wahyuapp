@@ -9,14 +9,10 @@ class Flashsale extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'diskon_price',
-        'original_price',
-        'category',
-        'description',
-        'image',
-        'product_id'
-    ];
-    
+    protected $fillable = ['id_product', 'diskon_price'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'id_product');
+    }
 }

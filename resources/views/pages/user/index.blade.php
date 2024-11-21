@@ -90,12 +90,12 @@
             @forelse ($flashsales as $item1)
                 <div class="col-lg-3 col-md-6">
                     <div class="single-product">
-                        <img class="img-fluid" src="{{ asset('images/' . $item1->image) }}" alt="">
+                        <img class="img-fluid" src="{{ asset('images/' . $item1->product->image) }}" alt="">
                         <div class="product-details">
                             <h6>{{ $item1->name }}</h6>
                             <div class="price">
                                 <h6>Harga Diskon: {{ $item1->diskon_price }} Points</h6>
-                                <h6>Harga Original: <del>{{ $item1->original_price }} Points</del></h6>
+                                <h6>Harga Original: <del>{{ $item1->product->price }} Points</del></h6>
                             </div>
                             <div class="prd-bottom">
                                 <a class="social-info" href="javascript:void(0);" onclick="confirmCash('{{ $item1->id }}', '{{ Auth::user()->id }}')">

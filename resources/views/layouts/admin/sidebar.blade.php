@@ -27,6 +27,24 @@
                 <a class="nav-link" href="{{ route('admin.flashsale') }}">
                     <i class="fas fa-solid fa-tags"></i>
                     <span>Produk Flash Sale</span></a>
+            </li>
+            <li class="{{ Route::is('admin.user.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.user.index') }}">
+                    <i class="fas fa-users"></i>
+                    <span>Kelola Pengguna</span>
+                </a>
+            </li>
+            <li class="{{ Request::is('admins*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.index') }}">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Admin</span>
+                </a>
+            <li class="{{ Request::is('history*') ? 'active' : '' }}">
+                <a class="nav-link"href="{{ route('admin.history') }}">
+                    <i class="fas fa-book"></i>
+                    <span>Riwayat Pembelian</span></a></li>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>

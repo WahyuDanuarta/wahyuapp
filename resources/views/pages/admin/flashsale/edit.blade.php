@@ -16,71 +16,39 @@
             </div>
         </div>
 
-        </a>
+        <a href="{{ route('admin.flashsale') }}" class="btn btn-icon icon-left btn-warning">Kembali</a>
 
         <div class="card mt-4">
-            <form action="{{ route('flashsale.update', $flashsales->id) }}" class="needs-validation" novalidate="" enctype="multipart/form-data" method="POST">
+            <form action="{{ route('flashsale.update', $flashsale->id) }}" class="needs-validation" novalidate="" enctype="multipart/form-data" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="name">Nama Produk Flashsale</label>
-                                <input id="name" type="text" class="form-control" name="name" required="" value="{{ $flashsales->name }}">
-                                <div class="invalid-feedback">
-                                    Kolom ini harus diisi!
+                                <div class="form-group">
+                                    <label for="id_product">Nama Produk</label>
+                                        <select name="id_product" class="form-control">
+                                                @foreach ($products as $item)
+                                            <option value="{{ $item->id }}" {{ $flashsale->id_product == $item->id ? 'selected' : ''}}>
+                                                {{ $item->name }}</option>
+                                                @endforeach
+                                        </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="diskon_price">Harga Diskon Produk</label>
-                                <input id="diskon_price" type="number" class="form-control" name="diskon_price" required="" value="{{ $flashsales->diskon_price }}">
+                                <label for="diskon_price">Harga Diskon (Point)</label>
+                                <input id="diskon_price" type="number" class="form-control" name="diskon_price" required="" value="{{ $flashsale->diskon_price }}">
                                 <div class="invalid-feedback">
-                                    Kolom ini harus diisi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="original_price">Harga Original Produk</label>
-                                <input id="original_price" type="number" class="form-control" name="original_price" required="" value="{{ $flashsales->original_price }}">
-                                <div class="invalid-feedback">
-                                    Kolom ini harus diisi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="category">Kategori Produk</label>
-                                <input id="category" type="text" class="form-control" name="category" required="" value="{{ $flashsales->category }}">
-                                <div class="invalid-feedback">
-                                    Kolom ini harus diisi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="description">Deskripsi Produk</label>
-                                <textarea class="form-control" name="description" id="description" cols="30" rows="4" required="">{{ $flashsales->description }}</textarea>
-                                <div class="invalid-feedback">
-                                    Kolom deskripsi harus diisi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input class="custom-file-input" name="image" id="customFile" type="file">
-                                    <label class="custom-file-label" for="customFile">Pilih Gambar</label>
+                                    Kolom ini harus di isi!
                                 </div>
                             </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-icon icon-left btn-primary">
-                        <i class="fas fa-save"></i> Simpan</button>
-                                <a href="{{ route('admin.flashsale') }}" class="btn btn-icon icon-left btn-warning"> Batal</a>
-                    
+                        <i class="fas fa-save"></i> Simpan
+                    </button>
                 </div>
             </form>
         </div>
